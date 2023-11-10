@@ -1,6 +1,8 @@
 const express = require("express");
 const app = express();
 
+app.use(express.json());
+
 //Task 1
 app.get('/hello', function(req,res) {
     res.json({msg: "Hello world"})
@@ -11,12 +13,18 @@ app.get('/echo/:id', function(req,res) {
     res.json({id: req.params.id})
 });
 
-//Task 3
-/*app.post('/sum', function(req, res) {
-    console.log(req.body);
-    res.send("Request sent");
+//Task3
 
-});*/
+
+app.post("/sum", function(req, res) {
+    const numbers = req.body.numbers;
+
+    let sum = 0;
+    for (let i=0; i<numbers.length; i++) {
+        sum += numbers[i];
+    }
+    res.json({sum: sum});
+})
 
 //Task 4
 app.use('/',express.static(__dirname + '/task4'));
